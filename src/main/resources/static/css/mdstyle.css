@@ -1,0 +1,44 @@
+.toolbardemoScrollShrink .face {
+  width: 48px;
+  margin: 16px;
+  border-radius: 48px;
+  border: 1px solid #ddd; }
+
+.mdSelectCustom {
+ margin-top:25px;
+ margin-bottom: 25px;
+}
+
+md-card md-card-content {
+ padding-bottom: 0;
+
+}
+
+md-input-container > md-select {
+  margin: 0px 0 26px 0;
+}
+
+.tableDataField {
+  width:100px;
+}
+
+.png-logo-icon{
+    margin: 12px auto auto;
+    padding: 0;
+    display: inline-block;
+    background-repeat: no-repeat no-repeat;
+    pointer-events: none;
+}
+
+.material-icons.grey { color: grey }
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+*/
