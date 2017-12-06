@@ -21,6 +21,7 @@ CRUD application built on AngularJS and SpringBoot for Definition and Adminstrat
 
 8. Go to the root folder of the project and start the application:
     `mvn spring-boot:run` from the root directory to install Node Modules
-9. Open http://<hostname>:<port>/datasharing/md in a browser. The browser should be connected to the internet in order to download the angularjs dependencies and stylesheets.
+9. Open the URL http://__hostname__:__port__/datasharing/md in a browser considering the settings in application.properties
+   The browser should be connected to the internet in order to download the angularjs dependencies and stylesheets.
 
 ---
