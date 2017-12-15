@@ -18,8 +18,5 @@ public interface DataAccessRuleService {
 
     List<DataAccessRule> findAllRules();
 
-    void deleteAllRules();
-
-    public boolean isRuleExisting(DataAccessRule das);
 
 }

@@ -16,20 +16,29 @@ public class DataAccessRule implements DataBean {
     private String fieldName = "";
     private String dataFilter = "";
     private String description = "";
+    private String tablePath = "";
+    private String validFrom = "";
+    private String validTo = "";
 
 
-    public DataAccessRule(){
-        id= new Long(0);
+    public DataAccessRule() {
+        id = new Long(0);
     }
 
 
-    public DataAccessRule(Long id, String ruleName, String userName, String fieldName, String dataFilter, String description) {
+    public DataAccessRule(Long id, String ruleName, String userName, String fieldName, String dataFilter,
+                          String description, String tablePath, String validFrom, String validTo) {
+
+        //TODO check how this can be generated automatically using bean methods
         this.id = id;
         this.ruleName = ruleName;
         this.userName = userName;
         this.fieldName = fieldName;
         this.dataFilter = dataFilter;
         this.description = description;
+        this.tablePath = tablePath;
+        this.validFrom = validFrom;
+        this.validTo = validTo;
     }
 
     @Override
@@ -81,6 +90,54 @@ public class DataAccessRule implements DataBean {
         this.description = description;
     }
 
+    public String getTablePath() {
+        return tablePath;
+    }
+
+    public void setTablePath(String tablePath) {
+        this.tablePath = tablePath;
+    }
+
+    public String getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(String validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public String getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(String validTo) {
+        this.validTo = validTo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DataAccessRule rule = (DataAccessRule) o;
+
+        if (!id.equals(rule.id)) return false;
+        if (!ruleName.equals(rule.ruleName)) return false;
+        if (!fieldName.equals(rule.fieldName)) return false;
+        if (!dataFilter.equals(rule.dataFilter)) return false;
+        return tablePath.equals(rule.tablePath);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + ruleName.hashCode();
+        result = 31 * result + fieldName.hashCode();
+        result = 31 * result + dataFilter.hashCode();
+        return result;
+    }
+
 
     public static DataAccessRule generateFromDBDocument(Document ruleDoc) {
         Long id = new Long(ruleDoc.getId().getString());
@@ -90,34 +147,14 @@ public class DataAccessRule implements DataBean {
                 ruleDoc.getString("userName"),
                 ruleDoc.getString("fieldName"),
                 ruleDoc.getString("dataFilter"),
-                ruleDoc.getString("description")
+                ruleDoc.getString("description"),
+                ruleDoc.getString("tablePath"),
+                ruleDoc.getString("validFrom"),
+                ruleDoc.getString("validTo")
         );
 
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        DataAccessRule that = (DataAccessRule) o;
-
-        if (!id.equals(that.id)) return false;
-        if (!userName.equals(that.userName)) return false;
-        if (!fieldName.equals(that.fieldName)) return false;
-        if (!dataFilter.equals(that.dataFilter)) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + userName.hashCode();
-        result = 31 * result + fieldName.hashCode();
-        result = 31 * result + dataFilter.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
-    }
 }

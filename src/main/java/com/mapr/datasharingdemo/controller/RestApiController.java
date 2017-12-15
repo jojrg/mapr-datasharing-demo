@@ -60,11 +60,15 @@ public class RestApiController {
 	public ResponseEntity<?> createRule(@RequestBody DataAccessRule rule, UriComponentsBuilder ucBuilder) throws Exception {
 		logger.info("Creating Rule : {}", rule);
 
+		//TODO check if rule with this name already exists
+		/*
 		if (ruleService.isRuleExisting(rule)) {
 			logger.error("Unable to create. A Rule with name {} already exist", rule.getRuleName());
 			return new ResponseEntity(new CustomErrorType("Unable to create. A Rule with name " +
 			rule.getRuleName() + " already exist."), HttpStatus.CONFLICT);
 		}
+		*/
+
 		ruleService.createRule(rule);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -92,6 +96,10 @@ public class RestApiController {
 		currentRule.setDescription(rule.getDescription());
 		currentRule.setDataFilter(rule.getDataFilter());
 		currentRule.setUserName(rule.getUserName());
+		currentRule.setUserName(rule.getUserName());
+		currentRule.setTablePath(rule.getTablePath());
+        currentRule.setValidFrom(rule.getValidFrom());
+        currentRule.setValidTo(rule.getValidTo());
 
 		ruleService.updateRule(currentRule);
 		return new ResponseEntity<DataAccessRule>(currentRule, HttpStatus.OK);
@@ -117,9 +125,9 @@ public class RestApiController {
 
 	@RequestMapping(value = "/rule/", method = RequestMethod.DELETE)
 	public ResponseEntity<DataAccessRule> deleteAllRules() {
-		logger.info("Deleting All Rules");
-
-		ruleService.deleteAllRules();
+		logger.info("Deleting All Rules (not implemented yet)");
+        //TODO implement delete all Rules
+		//ruleService.deleteAllRules();
 		return new ResponseEntity<DataAccessRule>(HttpStatus.NO_CONTENT);
 	}
 

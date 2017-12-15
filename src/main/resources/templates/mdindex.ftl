@@ -50,12 +50,13 @@
                   <p class="tableDataField" flex="noshrink">{{ rule.dataFilter}}</p>
                   <p class="tableDataField" flex="40">{{ rule.description}}</p>
                 </div>
-                <md-button class="md-icon-button" ng-click="controller.editRule(rule.id)"><i class="material-icons grey">edit</i></md-button>
-                <md-button class="md-icon-button" ng-click="controller.removeRule(rule.id)"><i class="material-icons grey">delete_forever</i></md-button>
+                  <md-button class="md-icon-button" ng-click="controller.editRule(rule.id)"><i class="material-icons grey">edit</i></md-button>
+                                <md-button class="md-icon-button" ng-click="controller.removeRule(rule.id)"><i class="material-icons grey">delete_forever</i></md-button>
                 <md-divider ng-if="!$last"></md-divider>
               </md-list-item>
          </md-list>
        </md-card-content>
+
      </md-card>
 
 
@@ -75,12 +76,15 @@
                <div layout-gt-sm="row">
                    <md-input-container class="md-block" flex-gt-sm>
                      <label>Rule Name</label>
-                     <input ng-model="controller.rule.ruleName">
+                     <input ng-model="controller.rule.ruleName" required name="ruleName">
+                     <div ng-messages="ruleForm.ruleName.$error">
+                        <div ng-message="required">is required!</div>
+                     </div>
                    </md-input-container>
 
                    <md-input-container class="md-block" flex-gt-sm>
                         <label>Description</label>
-                        <input ng-model="controller.rule.description">
+                        <input ng-model="controller.rule.description" name="description">
                     </md-input-container>
                </div>
 
@@ -88,6 +92,22 @@
                  <md-input-container class="md-block" flex-gt-sm>
                      <label>User Name</label>
                      <input ng-model="controller.rule.userName">
+                 </md-input-container>
+
+                 <md-input-container class="md-block" flex-gt-sm>
+                    <label>Data Filter</label>
+                    <md-select ng-model="controller.rule.dataFilter">
+                      <md-option ng-repeat="dataFilterObject in dataFilterNames" value="{{dataFilterObject.dataFilterName}}">
+                       {{dataFilterObject.dataFilterName}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+               </div>
+
+                <div layout-gt-sm="row">
+                 <md-input-container class="md-block" flex-gt-sm>
+                     <label>Table Path</label>
+                     <input ng-model="controller.rule.tablePath">
                  </md-input-container>
 
                  <md-input-container class="md-block" flex-gt-sm>
@@ -101,14 +121,33 @@
                </div>
 
               <div layout-gt-sm="row">
-                  <md-input-container class="md-block" flex-gt-sm>
-                    <label>Data Filter</label>
-                    <md-select ng-model="controller.rule.dataFilter">
-                      <md-option ng-repeat="dataFilterObject in dataFilterNames" value="{{dataFilterObject.dataFilterName}}">
-                       {{dataFilterObject.dataFilterName}}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                     <label>Valid From</label>
+                     <md-datepicker ng-model="controller.rule.validFrom" ng-model-options="{timezone: 'UTC'}" name="validFrom" md-min-date=""
+                       md-max-date="controller.rule.validTo"></md-datepicker>
+
+                     <div ng-messages="ruleForm.validFrom.$error">
+                       <div ng-message="valid">The entered value is not a date!</div>
+                       <div ng-message="required">This date is required!</div>
+                       <div ng-message="mindate">Date is too early!</div>
+                       <div ng-message="maxdate">Date later than 'Valid To'!</div>
+                     </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                     <label>Valid To</label>
+                     <md-datepicker ng-model="controller.rule.validTo" ng-model-options="{timezone: 'UTC'}" name="validTo" md-min-date="controller.rule.validFrom"
+                       md-max-date=""></md-datepicker>
+
+                     <div ng-messages="ruleForm.validTo.$error">
+                       <div ng-message="valid">The entered value is not a date!</div>
+                       <div ng-message="required">This date is required!</div>
+                       <div ng-message="mindate">Date must be later than 'Valid From' Date!</div>
+                       <div ng-message="maxdate">Date is too late!</div>
+                     </div>
+                </md-input-container>
+
               </div>
 
 
@@ -116,7 +155,7 @@
 
            <md-card-actions layout="row" layout-align="end center">
              <md-button class="md-raised md-primary" ng-click="controller.submit()" ng-disabled="ruleForm.$invalid || ruleForm.$pristine">Save</md-button>
-             <md-button class="md-raised" ng-click="controller.reset()" ng-disabled="!activeReset && (ruleForm.$invalid || ruleForm.$pristine)">Reset</md-button>
+             <md-button class="md-raised" ng-click="controller.reset()" ng-disabled="!activeReset && ruleForm.$pristine">Reset</md-button>
            </md-card-actions>
            </form>
          </md-card>

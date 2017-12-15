@@ -12,9 +12,6 @@ angular.module('crudApp')
         self.rule = {};
 
 
-        //$scope.dataFilterNames =["Hidden","Masked","UDF1","UDF2"];
-
-
         self.submit = submit;
         self.getAllRules = getAllRules;
         self.createRule = createRule;
@@ -60,7 +57,7 @@ angular.module('crudApp')
                 createRule(self.rule);
             } else {
                updateRule(self.rule, self.rule.id);
-               console.log('Rile updated with id ', self.rule.id);
+               console.log('Rule updated with id ', self.rule.id);
             }
         }
 
@@ -75,6 +72,7 @@ angular.module('crudApp')
                         self.done = true;
                         self.rule={};
                         $scope.ruleForm.$setPristine();
+                        $scope.ruleForm.$setUntouched();
                         $scope.activeReset = false;
                     },
                     function (errResponse) {
@@ -97,6 +95,7 @@ angular.module('crudApp')
                         self.done = true;
                         self.rule={};
                         $scope.ruleForm.$setPristine();
+                        $scope.ruleForm.$setUntouched();
                         $scope.activeReset = false;
                     },
                     function(errResponse){
@@ -149,6 +148,19 @@ angular.module('crudApp')
             self.errorMessage='';
             self.rule={};
             $scope.ruleForm.$setPristine(); //reset Form
+            $scope.ruleForm.$setUntouched(); //reset Form
+
+            angular.forEach($scope.ruleForm, function(ctrl, name) {
+              // ignore angular fields and functions
+              if (name.indexOf('$') != 0) {
+                // iterate over all $errors for each field
+                angular.forEach(ctrl.$error, function(value, name) {
+                  // reset validity
+                  ctrl.$setValidity(name, null);
+                });
+              }
+            });
+
         }
 
 

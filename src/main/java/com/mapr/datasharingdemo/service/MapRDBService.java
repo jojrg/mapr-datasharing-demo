@@ -202,7 +202,11 @@ public class MapRDBService {
                     .set("userName", ruleBean.getUserName())
                     .set("fieldName", ruleBean.getFieldName())
                     .set("dataFilter", ruleBean.getDataFilter())
-                    .set("description", ruleBean.getDescription());
+                    .set("description", ruleBean.getDescription())
+                    .set("tablePath", ruleBean.getTablePath())
+                    .set("validFrom", ruleBean.getValidFrom())
+                    .set("validTo", ruleBean.getValidTo())
+                    ;
             table.update(ruleBean.getId().toString(), mutation);
             table.flush();
         }

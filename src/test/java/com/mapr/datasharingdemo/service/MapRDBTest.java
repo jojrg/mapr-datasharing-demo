@@ -45,7 +45,7 @@ public class MapRDBTest {
 
     public void testCreateRuleDB() throws Exception {
 
-        DataAccessRule rule = new DataAccessRule(new Long(4563),"Rule1","leon","Field1","Masked","Field1 is masked for Leon ");
+        DataAccessRule rule = new DataAccessRule(new Long(4563),"Rule1","leon","Field1","Masked","Field1 is masked for Leon ","/foo/bar.csv","2017-12-24","2017-12-25");
         assertNotNull("Rule not null",rule);
         dbService.insert(rule);
 
@@ -70,7 +70,7 @@ public class MapRDBTest {
 
     //@Test
     public void testDeleteById() throws Exception {
-        DataAccessRule rule = new DataAccessRule(null,"Rule1","leon","Field1","Masked","Field1 is masked for Leon ");
+        DataAccessRule rule = new DataAccessRule(null,"Rule1","leon","Field1","Masked","Field1 is masked for Leon","/foo/bar.csv","2017-12-24","2017-12-25");
         DataBean dataBean = dbService.insert(rule);
         Long id = dataBean.getId();
         log.info("testDeleteById::created new document with Id:" + dataBean.getId());

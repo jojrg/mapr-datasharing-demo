@@ -19,15 +19,11 @@ public class DataAccessRuleServiceImpl implements DataAccessRuleService{
 
     private static final AtomicLong counter = new AtomicLong(10);
 
-    private static List<DataAccessRule> rules;
 
     @Autowired
     private MapRDBService dbService;
 
 
-    static{
-        rules = populateDummyRules();
-    }
 
 
     @Override
@@ -46,14 +42,7 @@ public class DataAccessRuleServiceImpl implements DataAccessRuleService{
     }
 
 
-    public DataAccessRule findByName(String name) {
-        for(DataAccessRule rule : rules){
-            if(rule.getRuleName().equalsIgnoreCase(name)){
-                return rule;
-            }
-        }
-        return null;
-    }
+
 
     @Override
     public void createRule(DataAccessRule rule)  {
@@ -72,22 +61,7 @@ public class DataAccessRuleServiceImpl implements DataAccessRuleService{
 
     }
 
-    @Override
-    public boolean isRuleExisting(DataAccessRule rule) {
-        return findByName(rule.getRuleName())!=null;
-    }
 
-    @Override
-    public void deleteAllRules(){
-        rules.clear();
-    }
 
-    private static List<DataAccessRule> populateDummyRules(){
-        List<DataAccessRule> rules = new ArrayList<DataAccessRule>();
-        rules.add(new DataAccessRule(counter.incrementAndGet(),"Rule1","leon","Field1","Masked","Field1 is masked for Leon "));
-        rules.add(new DataAccessRule(counter.incrementAndGet(),"Rule2","lawrence","Field1","Hidden","Field1 is hidden for Lawrence"));
-        rules.add(new DataAccessRule(counter.incrementAndGet(),"Rule3","jochen","Field3","MaskCreditCardUDF","Field3 has is be Masked for Jochen"));
-        return rules;
-    }
 
 }
