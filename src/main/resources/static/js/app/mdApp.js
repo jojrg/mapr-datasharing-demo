@@ -1,6 +1,8 @@
-var app = angular.module('crudApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ui.router','ngStorage']);
+var app = angular.module('crudApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache','ui.router','ngStorage','md.data.table']);
 
 console.log("mdApp.js::crudApp");
+
+//TODO remove constants
 app.constant('urls', {
     BASE: 'http://localhost:9000/SpringBootCRUDApp',
     USER_SERVICE_API : 'http://localhost:9000/SpringBootCRUDApp/api/user/',

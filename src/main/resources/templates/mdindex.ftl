@@ -8,6 +8,7 @@
 
   <link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.css'>
   <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.1.5/docs.css'>
+  <link rel="stylesheet" href="css/md-data-table.css">
   <link rel="stylesheet" href="css/mdstyle.css">
 
 
@@ -30,35 +31,56 @@
   <md-content layout-padding>
 
 
-    <!--  List of Rule -->
-    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="">
-       <md-card-title>
-         <md-card-title-text>
-           <span class="md-headline">List of Rule Definitions</span>
-           <span class="md-subhead">[Rule Name, User Name, Field Name, Data Filter, Description]</span>
-         </md-card-title-text>
-       </md-card-title>
+      <!--  List of Rule Data Table -->
+      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="">
+         <md-card-title>
+           <md-card-title-text>
+             <span class="md-headline">List of Rule Definitions</span>
+           </md-card-title-text>
+         </md-card-title>
 
-       <md-card-content>
-         <md-list flex="">
+         <md-card-content>
 
-              <md-list-item class="md-3-line" ng-repeat="rule in controller.getAllRules()" ng-click="null">
-                <div class="md-list-item-text" layout="row">
-                  <p class="tableDataField" flex="noshrink">{{ rule.ruleName }}</p>
-                  <p class="tableDataField" flex="noshrink">{{ rule.userName }}</p>
-                  <p class="tableDataField" flex="noshrink">{{ rule.fieldName }}</p>
-                  <p class="tableDataField" flex="noshrink">{{ rule.dataFilter}}</p>
-                  <p class="tableDataField" flex="40">{{ rule.description}}</p>
-                </div>
-                  <md-button class="md-icon-button" ng-click="controller.editRule(rule.id)"><i class="material-icons grey">edit</i></md-button>
-                                <md-button class="md-icon-button" ng-click="controller.removeRule(rule.id)"><i class="material-icons grey">delete_forever</i></md-button>
-                <md-divider ng-if="!$last"></md-divider>
-              </md-list-item>
-         </md-list>
-       </md-card-content>
+             <md-table-container>
+               <table md-table>
+                 <thead md-head>
+                   <tr md-row>
+                     <th md-column><span>Rule Name</span></th>
+                     <th md-column><span>User Name</span></th>
+                     <th md-column><span>Field Name</span></th>
+                     <th md-column><span>Data Filter</span></th>
+                     <th md-column><span>Description</span></th>
+                     <th md-column><span>Valid From/To</span></th>
+                     <th md-column><span></span></th>
+                   </tr>
+                 </thead>
+                 <tbody md-body>
+                   <tr md-row ng-repeat="rule in controller.getAllRules()">
+                     <td md-cell>{{rule.ruleName}}</td>
+                     <td md-cell>{{rule.userName}}</td>
+                     <td md-cell>{{rule.fieldName}}</td>
+                     <td md-cell>{{rule.dataFilter}}</td>
+                     <td md-cell>{{rule.description}}</td>
+                     <td md-cell>
+                       <div layout="column">
+                        <div>{{rule.validFrom | date:'dd.MM.yyyy'}}</div>
+                        <div>{{rule.validTo | date:'dd.MM.yyyy' }}</div>
+                     </td>
+                     <td md-cell>
+                      <div layout="row">
+                       <md-button class="md-icon-button" ng-click="controller.editRule(rule.id)"><i class="material-icons grey">edit</i></md-button>
+                       <md-button class="md-icon-button" ng-click="controller.removeRule(rule.id)"><i class="material-icons grey">delete_forever</i></md-button>
+                     </div>
+                     </td>
 
-     </md-card>
+                   </tr>
+                 </tbody>
+               </table>
+             </md-table-container>
 
+         </md-card-content>
+
+       </md-card>
 
 
     <!-- Detail Rule Form -->
@@ -180,6 +202,7 @@ Use of this source code is governed by an MIT-style license that can be foundin 
 <script src="js/lib/angular-ui-router.min.js" ></script>
 <script src="js/lib/localforage.min.js" ></script>
 <script src="js/lib/ngStorage.min.js"></script>
+<script src="js/lib/md-data-table.js"></script>
 
 
 <script  src="js/app/mdApp.js"></script>
