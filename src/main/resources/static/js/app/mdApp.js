@@ -25,7 +25,9 @@ app.config(function($mdThemingProvider) {
 
   // Use that theme for the primary intentions
   $mdThemingProvider.theme('default')
-    .primaryPalette('neonRed');
+    .primaryPalette('neonRed')
+    .accentPalette('neonRed');
+
 
 });
 

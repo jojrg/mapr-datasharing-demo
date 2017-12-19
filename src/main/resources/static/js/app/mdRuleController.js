@@ -8,6 +8,7 @@ angular.module('crudApp')
 .controller('RuleController',
     ['RuleService', '$scope',  function( RuleService, $scope) {
 
+        $scope.currentNavItem = 'pageHome';
         var self = this;
         self.rule = {};
 

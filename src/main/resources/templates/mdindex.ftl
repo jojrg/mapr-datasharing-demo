@@ -30,9 +30,20 @@
 
   <md-content layout-padding md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}">
 
+     <md-nav-bar
+       md-selected-nav-item="currentNavItem"
+       nav-bar-aria-label="navigation links">
+       <md-nav-item md-nav-click="none" name="pageHome">
+         Home
+       </md-nav-item>
+       <md-nav-item md-nav-click="none" name="pageAbout">
+         About
+       </md-nav-item>
+     </md-nav-bar>
+
 
       <!--  List of Rule Data Table -->
-      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="">
+      <md-card ng-show="currentNavItem == 'pageHome'" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="">
          <md-card-title>
            <md-card-title-text>
              <span class="md-headline">List of Rule Definitions</span>
@@ -77,7 +88,7 @@
                  </tbody>
                </table>
              </md-table-container>
-
+          <br/><br/>
          </md-card-content>
 
        </md-card>
@@ -85,7 +96,7 @@
 
     <!-- Detail Rule Form -->
 
-    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card ng-show="currentNavItem == 'pageHome'" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
        <form name="ruleForm">
            <md-card-title>
              <md-card-title-text>
@@ -183,8 +194,34 @@
          </md-card>
 
 
-<br/>
-<br/>
+      <md-content ng-show="currentNavItem == 'pageAbout'" flex layout-padding>
+      <h3>Sensitive Data Sharing Opportunity - Background</h3>
+      <p>Organisations with functional entities in different sovereign jurisdictions need to share sensitive customer data.
+      This can be both cross regional (e.g. between UK and France) and also inter regional (e.g. between business units).
+      Such sharing is subject to legislation (for example GDPR) and internal governance.</p>
+      <p>Today, organisations are implementing such data sharing arrangements manually which is both time consuming and error prone.
+      This is both costly and exposes the organisation to potential fines due to unauthorised distribution of data.
+      This is an issue for any organisation with multiple sub-entities.
+      Two tier-1 accounts in the UK that have specifically mentioned this are Vodafone and HSBC.</p>
+
+      <h4>MapR’s technology can be used to address these challenges</h4>
+      <p>The solution will require an easy-to-use user interface to orchestrate and monitor the process. This will allow for the automation and monitoring of data sharing, extremely attractive both in terms of reducing the cost/effort involved and ensuring that shared data remains secure.</p>
+      <ul>
+       <li>Allow the data sharing agreements to be expressed as a set of rules</li>
+       <li>Enforce the rules at data access time</li>
+       <li>Augment the rules with additional features such as expiration time</li>
+       <li>Ensure that access is fully audited</li>
+      </ul>
+
+       <br />
+       <br />
+
+    </md-content>
+
+
+
+
+
   </md-content>
 
 
