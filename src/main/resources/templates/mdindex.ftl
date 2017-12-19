@@ -28,7 +28,7 @@
       </div>
    </md-toolbar>
 
-  <md-content layout-padding>
+  <md-content layout-padding md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}">
 
 
       <!--  List of Rule Data Table -->
@@ -181,9 +181,13 @@
            </md-card-actions>
            </form>
          </md-card>
+
+
 <br/>
 <br/>
   </md-content>
+
+
 
 </div>
 

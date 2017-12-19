@@ -33,8 +33,7 @@ public class AppController {
 		logger.info("AppController::md");
 		modal.addAttribute("title","MapR Data Sharing Demo");
 		return "mdindex";
-		//return "indexuser";
-	}
 
+	}
 
 }
