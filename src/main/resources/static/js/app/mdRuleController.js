@@ -135,6 +135,13 @@ angular.module('crudApp')
             self.errorMessage='';
             RuleService.getRule(id).then(
                 function (rule) {
+                    if(rule.validFrom === null || rule.validFrom === '') {
+                       rule.validFrom = undefined;
+                    }
+                    if(rule.validTo === null || rule.validTo === '') {
+                       rule.validTo = undefined;
+                    }
+
                     self.rule = rule;
                     $scope.activeReset = true;
                 },

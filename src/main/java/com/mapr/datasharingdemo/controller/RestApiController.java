@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -90,16 +91,14 @@ public class RestApiController {
 					HttpStatus.NOT_FOUND);
 		}
 
-
-		currentRule.setRuleName(rule.getRuleName());
-		currentRule.setFieldName(rule.getFieldName());
-		currentRule.setDescription(rule.getDescription());
-		currentRule.setDataFilter(rule.getDataFilter());
-		currentRule.setUserName(rule.getUserName());
-		currentRule.setUserName(rule.getUserName());
-		currentRule.setTablePath(rule.getTablePath());
-        currentRule.setValidFrom(rule.getValidFrom());
-        currentRule.setValidTo(rule.getValidTo());
+		currentRule.setRuleName(StringUtils.isEmpty(rule.getRuleName())?"":rule.getRuleName());
+		currentRule.setFieldName(StringUtils.isEmpty(rule.getFieldName())?"":rule.getFieldName());
+		currentRule.setDescription(StringUtils.isEmpty(rule.getDescription())?"":rule.getDescription());
+		currentRule.setDataFilter(StringUtils.isEmpty(rule.getDataFilter())?"":rule.getDataFilter());
+		currentRule.setUserName(StringUtils.isEmpty(rule.getUserName())?"":rule.getUserName());
+		currentRule.setTablePath(StringUtils.isEmpty(rule.getTablePath())?"":rule.getTablePath());
+        currentRule.setValidFrom(StringUtils.isEmpty(rule.getValidFrom())?"":rule.getValidFrom());
+        currentRule.setValidTo(StringUtils.isEmpty(rule.getValidTo())?"":rule.getValidTo());
 
 		ruleService.updateRule(currentRule);
 		return new ResponseEntity<DataAccessRule>(currentRule, HttpStatus.OK);

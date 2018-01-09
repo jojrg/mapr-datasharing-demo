@@ -187,7 +187,7 @@
            </md-card-content>
 
            <md-card-actions layout="row" layout-align="end center">
-             <md-button class="md-raised md-primary" ng-click="controller.submit()" ng-disabled="ruleForm.$invalid || ruleForm.$pristine">Save</md-button>
+             <md-button class="md-raised md-primary" ng-click="controller.submit()" ng-disabled="ruleForm.$invalid || !ruleForm.$dirty">Save</md-button>
              <md-button class="md-raised" ng-click="controller.reset()" ng-disabled="!activeReset && ruleForm.$pristine">Reset</md-button>
            </md-card-actions>
            </form>
