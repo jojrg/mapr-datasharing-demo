@@ -44,7 +44,7 @@ public class RestApiController {
 	// -------------------Retrieve Single Rule------------------------------------------
 
 	@RequestMapping(value = "/rule/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getRule(@PathVariable("id") long id) {
+	public ResponseEntity<?> getRule(@PathVariable("id") String id) {
 		logger.info("Fetching Rule with id {}", id);
 		DataAccessRule rule = ruleService.findById(id);
 		if (rule == null) {
@@ -80,7 +80,7 @@ public class RestApiController {
 	// ------------------- Update a Rule ------------------------------------------------
 
 	@RequestMapping(value = "/rule/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateRule(@PathVariable("id") long id, @RequestBody DataAccessRule rule) {
+	public ResponseEntity<?> updateRule(@PathVariable("id") String id, @RequestBody DataAccessRule rule) {
 		logger.info("Updating Rule with id {}", id);
 
 		DataAccessRule currentRule = ruleService.findById(id);
@@ -107,7 +107,7 @@ public class RestApiController {
 	// ------------------- Delete a Rule-----------------------------------------
 
 	@RequestMapping(value = "/rule/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteRule(@PathVariable("id") long id) {
+	public ResponseEntity<?> deleteRule(@PathVariable("id") String id) {
 		logger.info("Fetching & Deleting Rule with id {}", id);
 
 		DataAccessRule rule = ruleService.findById(id);

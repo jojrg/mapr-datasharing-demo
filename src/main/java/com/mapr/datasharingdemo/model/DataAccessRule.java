@@ -8,7 +8,7 @@ import org.ojai.Document;
 public class DataAccessRule implements DataBean {
 
 
-    private Long id = null;
+    private String id = null;
 
 
     private String ruleName = "";
@@ -22,11 +22,11 @@ public class DataAccessRule implements DataBean {
 
 
     public DataAccessRule() {
-        id = new Long(0);
+        id = "0";
     }
 
 
-    public DataAccessRule(Long id, String ruleName, String userName, String fieldName, String dataFilter,
+    public DataAccessRule(String id, String ruleName, String userName, String fieldName, String dataFilter,
                           String description, String tablePath, String validFrom, String validTo) {
 
         //TODO check how this can be generated automatically using bean methods
@@ -42,11 +42,11 @@ public class DataAccessRule implements DataBean {
     }
 
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -140,7 +140,7 @@ public class DataAccessRule implements DataBean {
 
 
     public static DataAccessRule generateFromDBDocument(Document ruleDoc) {
-        Long id = new Long(ruleDoc.getId().getString());
+        String id = ruleDoc.getId().getString();
         return new DataAccessRule(
                 id,
                 ruleDoc.getString("ruleName"),

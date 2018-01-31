@@ -15,7 +15,6 @@
     </parent>
 
 
-
     <repositories>
         <repository> <id>mapr-releases</id>
             <url>http://repository.mapr.com/maven/</url>
@@ -26,6 +25,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <start-class>com.mapr.datasharingdemo.SpringBootApp</start-class>
     </properties>
 
 

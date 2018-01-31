@@ -35,7 +35,7 @@ public class DataAccessRuleServiceImpl implements DataAccessRuleService{
     }
 
     @Override
-    public DataAccessRule findById(long id) {
+    public DataAccessRule findById(String id) {
 
         return dbService.selectById(id);
 
@@ -55,7 +55,7 @@ public class DataAccessRuleServiceImpl implements DataAccessRuleService{
     }
 
     @Override
-    public void deleteRule(long id) {
+    public void deleteRule(String id) {
 
         dbService.deleteById(id);
 

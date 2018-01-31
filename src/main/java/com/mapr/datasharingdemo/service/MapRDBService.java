@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -81,11 +82,11 @@ public class MapRDBService {
     public DataBean insert(DataBean dataBean) throws DataAccessException {
 
         // increment idCounter and set it as id in the dataBean
-        dataBean.setId(idCounter.incrementAndGet());
+        dataBean.setId(UUID.randomUUID().toString());
         Document document = MapRDB.newDocument(dataBean);
 
         // set "_id" as string value of id property in the document
-        document.set("_id", dataBean.getId().toString());
+        document.set("_id", dataBean.getId());
 
         Table table = this.getOrCreateTable(dataTableName);
 
@@ -140,7 +141,7 @@ public class MapRDBService {
         }
     }
 
-    public DataAccessRule selectById(Long id) throws DataAccessException {
+    public DataAccessRule selectById(String id) throws DataAccessException {
 
         Table table = null;
 
@@ -150,7 +151,7 @@ public class MapRDBService {
 
         try {
             table = this.getOrCreateTable(dataTableName);
-            Document document = table.findById(id.toString());
+            Document document = table.findById(id);
             if (document == null) { return null;}
             return DataAccessRule.generateFromDBDocument(document);
         }
@@ -164,7 +165,7 @@ public class MapRDBService {
 
 
 
-    public void deleteById(Long id) throws DataAccessException {
+    public void deleteById(String id) throws DataAccessException {
 
         Table table = null;
 
@@ -174,7 +175,7 @@ public class MapRDBService {
 
         try {
             table = this.getOrCreateTable(dataTableName);
-            table.delete(id.toString());
+            table.delete(id);
         }
         catch (Throwable ex) {
             throw new DataAccessException(ex);
@@ -207,7 +208,7 @@ public class MapRDBService {
                     .set("validFrom", ruleBean.getValidFrom())
                     .set("validTo", ruleBean.getValidTo())
                     ;
-            table.update(ruleBean.getId().toString(), mutation);
+            table.update(ruleBean.getId(), mutation);
             table.flush();
         }
         catch (Throwable ex) {

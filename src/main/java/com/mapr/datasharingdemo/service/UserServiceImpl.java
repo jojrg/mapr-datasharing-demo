@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -27,9 +28,9 @@ public class UserServiceImpl implements UserService{
         return users;
     }
 
-    public User findById(long id) {
+    public User findById(String id) {
         for(User user : users){
-            if(user.getId() == id){
+            if(user.getId().equals(id)){
                 return user;
             }
         }
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public void saveUser(User user) {
-        user.setId(counter.incrementAndGet());
+        user.setId(UUID.randomUUID().toString());
         users.add(user);
     }
 
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService{
 
         for (Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
             User user = iterator.next();
-            if (user.getId() == id) {
+            if (user.getId().equals(id)) {
                 iterator.remove();
             }
         }
@@ -75,9 +76,9 @@ public class UserServiceImpl implements UserService{
 
     private static List<User> populateDummyUsers(){
         List<User> users = new ArrayList<User>();
-        users.add(new User(counter.incrementAndGet(),"Sam", 34));
-        users.add(new User(counter.incrementAndGet(),"Tomy", 35));
-        users.add(new User(counter.incrementAndGet(),"Kelly", 50));
+        users.add(new User(UUID.randomUUID().toString(),"Sam", 34));
+        users.add(new User(UUID.randomUUID().toString(),"Tomy", 35));
+        users.add(new User(UUID.randomUUID().toString(),"Kelly", 50));
         return users;
     }
 

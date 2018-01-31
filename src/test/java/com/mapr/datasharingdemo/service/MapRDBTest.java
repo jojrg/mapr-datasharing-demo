@@ -3,22 +3,22 @@ package com.mapr.datasharingdemo.service;
 import com.mapr.datasharingdemo.model.DataAccessRule;
 import com.mapr.datasharingdemo.model.DataBean;
 import com.mapr.datasharingdemo.model.TableConfiguration;
-import com.mapr.datasharingdemo.model.User;
+import com.mapr.datasharingdemo.model.TestDataBean;
 import com.mapr.db.MapRDB;
-import org.junit.Assert;
-import org.ojai.Document;
+import com.mapr.db.Table;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojai.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.UUID;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -33,6 +33,10 @@ public class MapRDBTest {
     @Autowired
     private MapRDBService dbService;
 
+    @Value("${data.table.name}")
+    private String dataTableName;
+
+
 
     @Test
     public void dummyTest() throws Exception {
@@ -40,12 +44,28 @@ public class MapRDBTest {
         assertTrue("Test that i has value of 1",i == 1);
     }
 
+    @Test
+    public void testInsertDocument() throws Exception {
 
+        TestDataBean testbean = new TestDataBean("210","peter");
+        Document document = MapRDB.newDocument(testbean);
+
+        // set "_id" as string value of id property in the document
+        document.set("_id", testbean.getId());
+
+        Table table = dbService.getOrCreateTable(dataTableName);
+
+        // save document into the table
+        table.insertOrReplace(document);
+        table.flush();
+
+
+    }
 
 
     public void testCreateRuleDB() throws Exception {
 
-        DataAccessRule rule = new DataAccessRule(new Long(4563),"Rule1","leon","Field1","Masked","Field1 is masked for Leon ","/foo/bar.csv","2017-12-24","2017-12-25");
+        DataAccessRule rule = new DataAccessRule(UUID.randomUUID().toString(),"Rule1","leon","Field1","Masked","Field1 is masked for Leon ","/foo/bar.csv","2017-12-24","2017-12-25");
         assertNotNull("Rule not null",rule);
         dbService.insert(rule);
 
@@ -72,7 +92,7 @@ public class MapRDBTest {
     public void testDeleteById() throws Exception {
         DataAccessRule rule = new DataAccessRule(null,"Rule1","leon","Field1","Masked","Field1 is masked for Leon","/foo/bar.csv","2017-12-24","2017-12-25");
         DataBean dataBean = dbService.insert(rule);
-        Long id = dataBean.getId();
+        String id = dataBean.getId();
         log.info("testDeleteById::created new document with Id:" + dataBean.getId());
         DataBean dataBean2 = dbService.selectById(id);
         assertNotNull("create document must exist",dataBean2);
@@ -94,8 +114,6 @@ public class MapRDBTest {
 
 
     }
-
-
 
 
 

@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface DataAccessRuleService {
 
-    DataAccessRule findById(long id);
+    DataAccessRule findById(String id);
 
     void createRule(DataAccessRule das) throws Exception;
 
     void updateRule(DataAccessRule das);
 
-    void deleteRule(long id);
+    void deleteRule(String id);
 
     List<DataAccessRule> findAllRules();
 

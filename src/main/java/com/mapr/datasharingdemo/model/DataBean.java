@@ -5,8 +5,8 @@ package com.mapr.datasharingdemo.model;
  */
 public interface DataBean {
 
-    public Long getId();
+    public String getId();
 
-    public void setId(Long id);
+    public void setId(String id);
 
 }

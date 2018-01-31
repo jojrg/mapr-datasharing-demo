@@ -8,22 +8,22 @@ public class User implements DataBean {
 
     private String name = null;
     private Integer age = null;
-    private Long id = null;
+    private String id = null;
 
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public User(){
-        id=new Long(0);
+        id="0";
     }
 
-    public User(Long userId, String username, Integer age){
+    public User(String userId, String username, Integer age){
         this.id = userId;
         this.name = username;
         this.age = age;
